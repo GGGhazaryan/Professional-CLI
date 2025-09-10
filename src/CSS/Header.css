@@ -42,7 +42,6 @@
 .burger-menu.open span:nth-child(3) {
   transform: rotate(-45deg) translateY(-8px);
 }
-
 /* ===== SIDEBAR ===== */
 .sidebar {
   position: fixed;
@@ -50,11 +49,13 @@
   left: -100%;
   width: 250px;
   height: 100vh;
-  background: #333;
+  background: #161616; /* dark main */
   padding: 20px;
   box-sizing: border-box;
   transition: left 0.3s ease;
   z-index: 1000;
+  box-shadow: 3px 0 10px rgba(0,0,0,0.5);
+  font-family: 'Arial', sans-serif;
 }
 
 .sidebar.show {
@@ -68,12 +69,32 @@
 }
 
 .sidebar ul li {
-  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
   color: white;
+  font-size: 18px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  background: #161616;
 }
 
-/* ===== OVERLAY (fade) ===== */
+.sidebar ul li i {
+  font-size: 20px;
+}
+
+/* hover effect */
+.sidebar ul li:hover {
+  background: #333;
+  color: #fff;
+  transform: translateX(5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* OPTIONAL: overlay */
 .overlay {
   position: fixed;
   top: 0;

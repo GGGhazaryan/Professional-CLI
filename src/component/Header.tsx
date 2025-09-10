@@ -30,7 +30,9 @@ function Header() {
                     <li><i className="fa fa-info-circle" />About</li>
                     <li><i className="fa fa-phone" /> Contact</li>
                     <li><i className="fa fa-lock"></i> Privacy Policy</li>
-                  
+                    <li><i className="fa fa-shield-alt"></i>Site Security</li>
+                    <li><i className="fa fa-cog"></i> Settings</li>
+
                 </ul>
             </div>
         </>

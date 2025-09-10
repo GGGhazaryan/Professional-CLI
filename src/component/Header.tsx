@@ -17,6 +17,15 @@ function Header() {
                         <span></span>
                     </div>
                 </div>
+                <div className="centerItems">
+
+                </div>
+                <div className="rightItemsBar">
+                    <div className="profilePlaceholder">
+                        <div className="profileImage"></div>
+                        <div className="profileUsername"></div>
+                    </div>
+                </div>
             </div>
 
             <div

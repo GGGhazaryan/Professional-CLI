@@ -10,7 +10,7 @@ function Header() {
         <div className="leftItemsBar">
           <div 
             className={`burger-menu ${open ? "open" : ""}`} 
-            onClick={() => setOpen(true)}
+            onClick={() => setOpen(!open)}
           >
             <span></span>
             <span></span>
@@ -25,11 +25,10 @@ function Header() {
       ></div>
 
       <div className={`sidebar ${open ? "show" : ""}`}>
-        <div className="close-btn" onClick={() => setOpen(false)}>✖</div>
         <ul>
-          <li onClick={()=> setOpen(false)}>Home</li>
-          <li>About</li>
-          <li>Contact</li>
+          <li onClick={()=> setOpen(false)}>🏠 Home</li>
+          <li>📄 About</li>
+          <li>📞 Contact</li>
         </ul>
       </div>
     </>

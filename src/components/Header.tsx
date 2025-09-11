@@ -1,60 +1,84 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../supabase"; 
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabase";
 import "../CSS/Header.css";
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState({
     username: "Log-in",
-    avatar_url: "/default-avatar.png", // путь к базовому аватару
+    avatar_url: "/default-avatar.png", // положи дефолтный аватар в public/
   });
+
+  const navigate = useNavigate();
 
   // Подписка на авторизацию
   useEffect(() => {
-    const session = supabase.auth.session();
-    setUser(session?.user ?? null);
+    async function getCurrentUser() {
+      const { data } = await supabase.auth.getUser();
+      setUser(data.user ?? null);
+    }
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+    getCurrentUser();
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
-    return () => authListener?.unsubscribe();
+    return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Получаем данные профиля из таблицы "profiles" (если есть)
+  // Получаем данные профиля из таблицы "profiles"
   useEffect(() => {
-    if (user) {
-      supabase
-        .from("profiles")
-        .select("username, avatar_url")
-        .eq("id", user.id)
-        .single()
-        .then(({ data, error }) => {
-          if (data) {
-            setProfile({
-              username: data.username || "No name",
-              avatar_url: data.avatar_url || "/default-avatar.png",
-            });
-          }
+    async function fetchProfile() {
+      if (user) {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", user.id)
+          .single();
+
+        if (data) {
+          setProfile({
+            username: data.username || "No name",
+            avatar_url: data.avatar_url || "/default-avatar.png",
+          });
+        } else {
+          setProfile({
+            username: "No name",
+            avatar_url: "/default-avatar.png",
+          });
+        }
+      } else {
+        setProfile({
+          username: "Log-in",
+          avatar_url: "/default-avatar.png",
         });
-    } else {
-      // Если нет пользователя, показываем дефолт
-      setProfile({
-        username: "Log-in",
-        avatar_url: "/default-avatar.png",
-      });
+      }
     }
+
+    fetchProfile();
   }, [user]);
 
-  function reconect() {
-    window.location.href = "./";
-  }
+  const handleProfileClick = () => {
+    if (!user) {
+      navigate("/log-in");
+    } else {
+      navigate("/reg");
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    navigate("/");
+  };
 
   return (
     <>
-      <div className="headerBox" style={{ display: "flex" }}>
-        <div className="leftItemsBar" style={{ display: "flex", gap: "15px" }}>
+      <div className="headerBox">
+        <div className="leftItemsBar">
           <div
             className={`burger-menu ${open ? "open" : ""}`}
             onClick={() => setOpen(!open)}
@@ -63,7 +87,7 @@ function Header() {
             <span></span>
             <span></span>
           </div>
-          <div className="logo" onClick={reconect}>
+          <div className="logo" onClick={() => navigate("/")}>
             Professional
           </div>
         </div>
@@ -71,19 +95,20 @@ function Header() {
         <div className="centerItems"></div>
 
         <div className="rightItemsBar">
-          <div className="profilePlaceholder">
+          <div className="profilePlaceholder" onClick={handleProfileClick}>
             <div
               className="profileImage"
               style={{
                 backgroundImage: `url(${profile.avatar_url})`,
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                backgroundSize: "cover",
               }}
             ></div>
             <div className="profileUsername">{profile.username}</div>
           </div>
+          {user && (
+            <button className="logoutBtn" onClick={handleLogout}>
+              Выйти
+            </button>
+          )}
         </div>
       </div>
 

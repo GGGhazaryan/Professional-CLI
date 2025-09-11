@@ -123,3 +123,44 @@
   cursor: pointer;
   text-shadow:1px 1px 1px #000;
 }
+.headerBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.rightItemsBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profilePlaceholder {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.profileUsername {
+  font-weight: bold;
+}
+
+.logoutBtn {
+  padding: 4px 8px;
+  border: none;
+  background-color: #f44336;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}

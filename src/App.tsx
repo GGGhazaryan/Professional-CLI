@@ -1,8 +1,6 @@
-import Header from '../src/component/Header'
+import Header from '../src/components/Header'
 
 function App() {
-
-
   return (
     <>
      <Header />

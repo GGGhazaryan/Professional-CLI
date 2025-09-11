@@ -5,9 +5,9 @@
   padding: 10px;
   background: #222;
   color: white;
-  width:auto;
-  height:50px !important;
-  border-radius:15px;
+  width: auto;
+  height: 50px !important;
+  border-radius: 15px;
 }
 
 /* ===== BURGER MENU ===== */
@@ -19,7 +19,8 @@
   justify-content: space-between;
   height: 20px;
   position: relative;
-  z-index: 1100; /* чтобы крестик был выше overlay */
+  z-index: 1100;
+  /* чтобы крестик был выше overlay */
 }
 
 .burger-menu span {
@@ -42,6 +43,7 @@
 .burger-menu.open span:nth-child(3) {
   transform: rotate(-45deg) translateY(-8px);
 }
+
 /* ===== SIDEBAR ===== */
 .sidebar {
   position: fixed;
@@ -49,12 +51,13 @@
   left: -100%;
   width: 250px;
   height: 100vh;
-  background: #161616; /* dark main */
+  background: #161616;
+  /* dark main */
   padding: 20px;
   box-sizing: border-box;
   transition: left 0.3s ease;
   z-index: 1000;
-  box-shadow: 3px 0 10px rgba(0,0,0,0.5);
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
   font-family: 'Arial', sans-serif;
 }
 
@@ -91,7 +94,7 @@
   background: #333;
   color: #fff;
   transform: translateX(5px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* OPTIONAL: overlay */
@@ -101,7 +104,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;
@@ -111,4 +114,12 @@
 .overlay.show {
   opacity: 1;
   visibility: visible;
+}
+.logo {
+  font-size: 28px;
+  font-family: 'Poppins', 'Montserrat', 'Arial', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-shadow:1px 1px 1px #000;
 }
